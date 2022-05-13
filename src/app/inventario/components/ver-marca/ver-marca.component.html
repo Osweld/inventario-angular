@@ -1,0 +1,9 @@
+<section class="fixed top-0 z-10  w-full min-h-screen  flex justify-center items-center left-0">
+  <div class="bg-gray-800 opacity-50 w-full min-h-screen" (click)="closeModal()"></div>
+  <div id="modal" class="absolute w-96  bg-slate-100 shadow-lg rounded">
+    <div class="flex flex-col items-center p-2">
+      <div class="text-3xl font-bold">{{marca.nombre}}</div>
+      <div class="mt-5 text-center"> {{marca.descripcion}}</div>
+    </div>
+  </div>
+</section>

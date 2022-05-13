@@ -1,0 +1,16 @@
+<div class="flex flex-row items-center py-2 bg-indigo-400 shadow-sm px-4 rounded">
+  <div class="px-5">
+    <p class="font-semibold text-gray-50">Buscar:</p>
+  </div>
+  <div>
+    <form (ngSubmit)="buscar()" [formGroup]="buscarForm">
+      <input type="text"
+       class="shadow appearance-none border rounded text-gray-700 focus:outline-none focus:shadow-outline"
+       formControlName="termino"
+       name="termino"
+       (input)="getTermino()"
+       autocomplete="off"
+       />
+    </form>
+  </div>
+</div>

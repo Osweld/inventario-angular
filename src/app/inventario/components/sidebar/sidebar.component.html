@@ -1,0 +1,18 @@
+<aside class=" shadow-md" aria-label="Sidebar">
+  <div class="w-64 fixed h-screen">
+  <nav class=" overflow-y-auto h-full w-full bg-stone-700">
+    <div class="flex justify-center items-center py-5">
+      <img
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAADH0lEQVRoge2Zv4sdVRTHPycLuiKYQIS4RhJFk7VQZLGwSCfYGQSJBFlB0T/BTrYJgiQWprASrFQE7baJIlaCvwqjqMiaRJIVxIWAGi00uLsfi/eeLI85b97M3GVSvG8zzPmemXO+c+7cc+cOzADqnr5itw6s3qy+pv4GbKpX1DfVhwrmt3tQT1uNLfVVda7vHCdCXU8EjPD+DS1C/alGgOrpvvNMoa5MIWBTfaTvXCuhzqkvqRfU7QkivlNv6jvfiVAX1M8niHi+7xxroe5Xf04ErNljr5ga6skJVTjRd35TQT2fCPio79ymgrqcCNhSD/WdXy3UefVaImKldLzdeLHuAr5MuJOlg+2GgEXg04R7QD1SMlhRAepB4DbgInA1cTteMmbpCiwOjwKfJT5PlAxYTIC6Dziww/RF4npMvb1U3JIVuH/sfJ3qYTQHPF4qaBEB6jxQNcd/nVxSbBiVqsBRBk92HF8l/o+pt5QI3FmAg6+uexP6HPBXhf1W4NGusaFMBe4B5hPue+DDhCsynZYQcDSx/xoRfwCrCX9cja7BOwlQF4C9Cb02PJ4DNiv4O4GlLvGhewXGp84RrkXEBkBE/A58kvh1/kbosrG1F7gjoX8cO8+G0XLXYdSlAtnTvw5cGbOtMlhejOMQcKxDDu0EDBvX4YS+GBFbOw0RsQ58m/gvt8lhhLYVOEJ149pmsBKtwnuJ/Sk7bLs0FjDcXbgvoS9HxD8J9xawVWHfDzzdNI8R2lRgUuO6kF0UEb8AHyf0i21f5jYCssa1MWxck/BGYn8QeKZFLs0EDBvXvoReS+w7sQr8kHBn1AMJl6JpBRYT+5/ARt3FEbENnEnoBeAD9e4mCU0tYNi4FhJ6LSKq5vkqvAt8k3BLwGUHf3tenmZ2alKBbOxXNa4UEbEJvED1+miEw8AKcKrufk0EHEzsl8YbVx0i4jzwyhSuz9U5NBFQNc1Nalx1OAW8XeNTm18TAVXD5FJE/N3gHv9j+EI/y0DIv4nbO23uXQl1j7qkPqmeUB8uteevLqqvO/jbc129qp4drrlmmGGGGW5g/AfoGltK6AvWywAAAABJRU5ErkJggg==">
+    </div>
+    <ul class="space-y-2">
+      <li *ngFor="let item of menu" class="flex items-center font-medium text-white" >
+        <a href="#" class="hover:bg-slate-400 w-full px-2 py-2" [routerLink]="item.url">
+          <span>
+            <i class="{{item.icon}}"></i>
+          </span> {{item.nombre}}
+        </a>
+    </ul>
+  </nav>
+</div>
+</aside>
