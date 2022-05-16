@@ -4,6 +4,26 @@ export interface Marca {
   descripcion: string;
 }
 
+export interface Categoria {
+  id: number;
+  nombre: string;
+  descripcion: string;
+}
+
+export interface Articulo{
+id:number;
+nombre:string;
+descripcion:string;
+stock:number;
+codigo:string;
+precio:number;
+costo:number;
+activo:boolean;
+categoria:Categoria;
+marca:Marca
+
+}
+
 export interface Pagination {
   data:any;
   totalPages: number;

@@ -44,7 +44,12 @@
   <app-paginacion [pagina]="pagina" (selectPage)="nextPage($event)"></app-paginacion>
 </section>
 <app-ver-marca *ngIf="modalVerActive" (close)="closeVerModal($event)" [marca]="marca"></app-ver-marca>
-<app-marca-form *ngIf="modalAgregarActive" (close)="closeAgregarModal($event)" [marca]="marca" [titulo]="titulo">
+<app-marca-form
+*ngIf="modalAgregarActive"
+(close)="closeAgregarModal($event)"
+(refresh)="updatePage($event)"
+[marca]="marca"
+[titulo]="titulo">
 </app-marca-form>
 <app-marca-eliminar *ngIf="modalEliminarMarca" (close)="closeEliminarModal($event)" [marca]="marca"
   (isDelete)="updatePage($event)"></app-marca-eliminar>

@@ -1,1 +1,58 @@
-<p>categoria works!</p>
+<section class="w-full flex flex-col">
+  <div class="flex justify-center">
+    <h1 class="text-6xl font-medium">Categorias</h1>
+  </div>
+  <div class="flex flex-row flex-nowrap justify-between mt-20 px-10">
+    <div class="flex items-center">
+      <button (click)="agregarCategoria()"
+        class=" bg-indigo-400 shadow-md text-gray-50 py-2 px-4  hover:bg-indigo-500 rounded">Agregar Categoria</button>
+    </div>
+    <div>
+      <app-buscador (termino)="getCategoriasByTermino($event)"></app-buscador>
+      <ul *ngIf="mostrarSugerencias" class="absolute bg-slate-50 w-80 shadow-xl">
+        <li *ngFor="let marca of categoriasBuscador"
+        class="cursor-pointer px-2 py-3 font-medium hover:bg-indigo-400 hover:text-slate-50"
+        (click)="verCategoria(marca)"
+        >{{marca.nombre}}</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+<!-- Componente tabla -->
+<section class="w-full pt-7" *ngIf="categorias">
+  <table class="table-auto w-full px-6 border">
+    <thead class="bg-indigo-400 text-gray-50 text-left">
+      <tr>
+        <th class="px-4 py-3">ID</th>
+        <th class="px-4 py-3">Nombre</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let categoria of categorias" class="border-b">
+        <td class="px-4 py-3">{{categoria.id}}</td>
+        <td class="px-4 py-3 w-full">{{categoria.nombre}}</td>
+        <td (click)="verCategoria(categoria)" class="px-4 py-3"><a class="btn-ver">Ver</a></td>
+        <td (click)="editarCategoria(categoria)" class="px-4 py-3"><a class="btn-editar">Editar</a></td>
+        <td (click)="eliminarCategoria(categoria)" class="px-4 py-3"><a class="btn-eliminar">Eliminar</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <app-paginacion [pagina]="pagina" (selectPage)="nextPage($event)"></app-paginacion>
+</section>
+
+
+<app-categoria-ver *ngIf="modalVerActive" (close)="closeVerModal($event)" [categoria]="categoria"></app-categoria-ver>
+<app-categoria-form
+*ngIf="modalAgregarActive"
+(close)="closeAgregarModal($event)"
+(update)="updatePage($event)"
+[categoria]="categoria"
+[titulo]="titulo">
+</app-categoria-form>
+<app-categoria-eliminar *ngIf="modalEliminarActive" (close)="closeEliminarModal($event)" [categoria]="categoria"
+  (isDelete)="updatePage($event)"></app-categoria-eliminar>
+

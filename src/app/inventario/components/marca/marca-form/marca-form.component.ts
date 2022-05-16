@@ -1,7 +1,7 @@
 import { Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Marca } from '../../interfaces/inventario.interface';
-import { MarcaService } from '../../service/marca.service';
+import { Marca } from '../../../interfaces/inventario.interface';
+import { MarcaService } from '../../../service/marca.service';
 
 @Component({
   selector: 'app-marca-form',
@@ -11,6 +11,7 @@ import { MarcaService } from '../../service/marca.service';
 export class MarcaFormComponent implements OnInit,DoCheck {
 
   @Output() close = new EventEmitter<boolean>();
+  @Output() refresh = new EventEmitter<boolean>();
   @Input() marca!: Marca
   @Input() titulo!: String
   isEditing:boolean = false
@@ -74,6 +75,7 @@ export class MarcaFormComponent implements OnInit,DoCheck {
       this.marcaService.updateMarca(this.marca).subscribe({
         next: () => {
           this.closeModal()
+
         },
         error: (error) => {
           console.error(error)
@@ -84,6 +86,7 @@ export class MarcaFormComponent implements OnInit,DoCheck {
       this.marcaService.saveMarca(this.marca).subscribe({
         next: () => {
           this.closeModal()
+          this.refresh.emit(true)
         },
         error: (error) => {
           console.error(error)

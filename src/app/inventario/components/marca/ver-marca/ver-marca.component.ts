@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
-import { Marca } from '../../interfaces/inventario.interface';
+import { Marca } from '../../../interfaces/inventario.interface';
 
 @Component({
   selector: 'app-ver-marca',

@@ -1,7 +1,7 @@
 import { TmplAstRecursiveVisitor } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Marca } from '../../interfaces/inventario.interface';
-import { MarcaService } from '../../service/marca.service';
+import { Marca } from '../../../interfaces/inventario.interface';
+import { MarcaService } from '../../../service/marca.service';
 
 @Component({
   selector: 'app-marca-eliminar',

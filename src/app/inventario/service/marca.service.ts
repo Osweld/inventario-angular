@@ -14,7 +14,7 @@ export class MarcaService {
   constructor(private http:HttpClient) { }
 
   getAllMarcas(page:Number):Observable<Pagination>{
-    const url = `${this.baseUrl}/api/v1/marcas?page=${page}&size=3`;
+    const url = `${this.baseUrl}/api/v1/marcas?page=${page}`;
     return this.http.get<Pagination>(url)
   }
 

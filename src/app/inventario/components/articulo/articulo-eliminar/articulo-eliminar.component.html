@@ -1,0 +1,13 @@
+<section class="fixed top-0 z-10  w-full min-h-screen  flex justify-center items-center left-0">
+  <div class="bg-gray-800 opacity-50 w-full min-h-screen"></div>
+  <div id="modal" class="absolute w-96  bg-slate-100 shadow-lg rounded">
+    <div class="flex flex-col items-center p-2">
+      <div class="mt-5 text-center font-bold text-red-500"> ¿Esta seguro que quiere eliminar este articulo?</div>
+      <div class="text-3xl font-bold">{{articulo.marca.nombre}} {{articulo.nombre}}</div>
+      <div class="py-2 px-4 mt-5 flex justify-evenly w-full">
+        <button  (click)="deleteMarca()"class="bg-red-500 shadow-md text-gray-50 py-2 px-4  hover:bg-red-600 rounded">Eliminar</button>
+        <button (click)="closeModal()" class="bg-gray-400 shadow-md text-gray-50 py-2 px-4  hover:bg-gray-500 rounded">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,1 +1,71 @@
-<p>articulo works!</p>
+<section class="w-full flex flex-col">
+  <div class="flex justify-center">
+    <h1 class="text-6xl font-medium">Articulos</h1>
+  </div>
+  <div class="flex flex-row flex-nowrap justify-between mt-20 px-10">
+    <div class="flex items-center">
+      <button (click)="agregarArticulo()"
+        class=" bg-indigo-400 shadow-md text-gray-50 py-2 px-4  hover:bg-indigo-500 rounded">Agregar Articulo</button>
+    </div>
+    <div>
+      <app-buscador (termino)="getArticulosByTermino($event)"></app-buscador>
+      <ul *ngIf="mostrarSugerencias" class="absolute bg-slate-50 w-80 shadow-xl">
+        <li *ngFor="let articulo of articulosBuscador"
+        class="cursor-pointer px-2 py-3 font-medium hover:bg-indigo-400 hover:text-slate-50"
+        (click)="verArticulo(articulo)"
+        >{{articulo.nombre}}</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+<!-- Componente tabla -->
+<section class="w-full pt-7" *ngIf="articulos">
+  <table class="table-auto w-full px-6 border">
+    <thead class="bg-indigo-400 text-gray-50 text-left">
+      <tr>
+        <th class="px-4 py-3">ID</th>
+        <th class="px-4 py-3">Codigo</th>
+        <th class="px-4 py-3">Categoria</th>
+        <th class="px-4 py-3">Marca</th>
+        <th class="px-4 py-3">Nombre</th>
+        <th class="px-4 py-3">precio</th>
+        <th class="px-4 py-3">Costo</th>
+        <th class="px-4 py-3">Stock</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let articulo of articulos" class="border-b">
+        <td class="px-4 py-3">{{articulo.id}}</td>
+        <td class="px-4 py-3 ">{{articulo.codigo}}</td>
+        <td class="px-4 py-3 ">{{articulo.categoria.nombre}}</td>
+        <td class="px-4 py-3 ">{{articulo.marca.nombre}}</td>
+        <td class="px-4 py-3 ">{{articulo.nombre}}</td>
+        <td class="px-4 py-3 ">{{articulo.precio | currency:'USD'}}</td>
+        <td class="px-4 py-3 ">{{articulo.costo | currency:'USD'}}</td>
+        <td class="px-4 py-3 font-bold w-full">{{articulo.stock}}</td>
+        <td (click)="verArticulo(articulo)" class="px-4 py-3"><a class="btn-ver">Ver</a></td>
+        <td (click)="editarArticulo(articulo)" class="px-4 py-3"><a class="btn-editar">Editar</a></td>
+        <td (click)="eliminarArticulo(articulo)" class="px-4 py-3"><a class="btn-eliminar">Eliminar</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <app-paginacion [pagina]="pagina" (selectPage)="nextPage($event)"></app-paginacion>
+</section>
+
+
+<app-articulo-ver *ngIf="modalVerActive" (close)="closeVerModal($event)" [articulo]="articulo"></app-articulo-ver>
+<!-- <app-categoria-form
+*ngIf="modalAgregarActive"
+(close)="closeAgregarModal($event)"
+(update)="updatePage($event)"
+[categoria]="categoria"
+[titulo]="titulo">
+</app-categoria-form> -->
+<app-articulo-eliminar *ngIf="modalEliminarActive" (close)="closeEliminarModal($event)" [articulo]="articulo"
+  (isDelete)="updatePage($event)"></app-articulo-eliminar>
+
+
