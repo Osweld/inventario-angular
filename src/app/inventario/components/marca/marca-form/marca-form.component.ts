@@ -1,6 +1,7 @@
 import { Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Marca } from '../../../interfaces/inventario.interface';
+import { debounceTime } from 'rxjs';
+import { ErrorResponse, Marca } from '../../../interfaces/inventario.interface';
 import { MarcaService } from '../../../service/marca.service';
 
 @Component({
@@ -14,7 +15,11 @@ export class MarcaFormComponent implements OnInit,DoCheck {
   @Output() refresh = new EventEmitter<boolean>();
   @Input() marca!: Marca
   @Input() titulo!: String
+  errorResponse!:ErrorResponse
+  errorMessage:string = ""
   isEditing:boolean = false
+  isLoading:boolean = false
+  isError:boolean = false
 
 
 
@@ -61,13 +66,20 @@ export class MarcaFormComponent implements OnInit,DoCheck {
     this.close.emit(false)
   }
 
+  showError(){
+    setTimeout(() => {
+      this.isError = false
+    }, 5000);
+    this.isError = true;
+  }
+
   save() {
 
     if (this.marcaForm.invalid) {
-      this.marcaForm.markAsTouched
+      this.marcaForm.markAllAsTouched()
       return
     }
-
+    this.isLoading  = true
     this.marca.nombre = this.marcaForm.value.nombre
     this.marca.descripcion = this.marcaForm.value.descripcion
     if (this.marca.id > 0) {
@@ -75,10 +87,18 @@ export class MarcaFormComponent implements OnInit,DoCheck {
       this.marcaService.updateMarca(this.marca).subscribe({
         next: () => {
           this.closeModal()
-
+          this.isLoading  = false
         },
         error: (error) => {
-          console.error(error)
+          this.errorResponse = error.error
+          if(this.errorResponse.validations.unique !== ""){
+            this.errorMessage = this.errorResponse.validations.unique
+            this.showError()
+          }else{
+            this.errorMessage = "Ha ocurrido un problema al agregar el articulo"
+            this.showError()
+          }
+          this.isLoading  = false
         }
       })
     } else {
@@ -87,9 +107,18 @@ export class MarcaFormComponent implements OnInit,DoCheck {
         next: () => {
           this.closeModal()
           this.refresh.emit(true)
+          this.isLoading  = false
         },
         error: (error) => {
-          console.error(error)
+          this.errorResponse = error.error
+          if(this.errorResponse.validations.unique !== ""){
+            this.errorMessage = this.errorResponse.validations.unique
+            this.showError()
+          }else{
+            this.errorMessage = "Ha ocurrido un problema al agregar el articulo"
+            this.showError()
+          }
+          this.isLoading  = false
         }
       })
     }

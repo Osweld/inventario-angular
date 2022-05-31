@@ -1,1 +1,125 @@
-<p>articulo-form works!</p>
+<section class="fixed top-0 z-10  w-full min-h-screen  flex justify-center items-center left-0 overflow-y-auto">
+  <div class="bg-gray-800 opacity-50 w-full min-h-screen "></div>
+
+  <div *ngIf="isError"  class="absolute z-30 top-4 right-4 py-2 px-4 bg-red-500 text-slate-50 font-bold" >
+    <span>{{errorMessage}}</span>
+  </div>
+
+
+  <div id="modal" class="absolute w-2/3  bg-slate-100 shadow-lg rounded ">
+    <div class="w-full flex justify-end"><button (click)="closeModal()"
+        class="text-red-600 text-2xl py-1 px-3">x</button></div>
+    <form autocomplete="off" (ngSubmit)="save()" [formGroup]="articuloForm" class="flex flex-col ">
+      <div class="pt-4 text-center">
+        <p class="font-bold text-xl">{{titulo}}</p>
+      </div>
+      <!-- Input's -->
+      <div class="flex flex-nowrap justify-between ">
+        <!-- left -->
+        <div class="w-1/2">
+          <div class="flex flex-col px-5 pt-3">
+            <label class="font-semibold pr-2 pb-2" for="codigo">Codigo:</label>
+            <input type="text" formControlName="codigo" name="codigo" id="codigo"
+              class="w-full shadow appearance-none border rounded text-gray-700 focus:outline-none focus:shadow-outline py-1 px-3" />
+              <div *ngFor="let validation of articulo_validation_messages.codigo">
+                <span *ngIf="articuloForm.get('codigo')?.hasError(validation.type) && (articuloForm.get('codigo')?.dirty || articuloForm.get('codigo')?.touched)"
+                 class="text-sm text-red-500"> {{validation.message}}</span>
+              </div>
+          </div>
+          <div class="flex flex-col px-5 pt-3">
+            <label class="font-semibold pr-2 pb-2" for="nombre">Nombre:</label>
+            <input type="text" formControlName="nombre" name="nombre" id="nombre"
+              class="w-full shadow appearance-none border rounded text-gray-700 focus:outline-none focus:shadow-outline py-1 px-3" />
+              <div *ngFor="let validation of articulo_validation_messages.nombre">
+                <span *ngIf="articuloForm.get('nombre')?.hasError(validation.type) && (articuloForm.get('nombre')?.dirty || articuloForm.get('nombre')?.touched)"
+                 class="text-sm text-red-500"> {{validation.message}}</span>
+              </div>
+          </div>
+          <div class="flex flex-col px-5 pt-4">
+            <label class="font-semibold pr-2 pb-2" for="activo">¿Articulo Activo?</label>
+            <input type="checkbox" formControlName="activo" name="activo" id="activo"
+             class=" h-6 w-6" />
+          </div>
+          <div class="flex flex-col px-5 pt-4">
+            <label class="font-semibold pr-2 pb-2" for="marca">Marca:</label>
+            <select class="w-full shadow appearance-none border rounded text-gray-700 focus:outline-none focus:shadow-outline py-1 px-3"
+            formControlName="marca">
+              <option value="0">  -- Seleccionar Marca -- </option>
+              <option *ngFor="let marca of marcas" value="{{marca.id}}">{{marca.nombre}}</option>
+          </select>
+          <div *ngFor="let validation of articulo_validation_messages.marca">
+            <span *ngIf="articuloForm.get('marca')?.hasError(validation.type) && (articuloForm.get('marca')?.dirty || articuloForm.get('marca')?.touched)"
+             class="text-sm text-red-500"> {{validation.message}}</span>
+          </div>
+          </div>
+        </div>
+
+        <!-- Right -->
+        <div class="w-1/2">
+          <div class="flex flex-col px-5 pt-3">
+            <label class="font-semibold pr-2 pb-2" for="stock">Stock:</label>
+            <input type="text" formControlName="stock" name="stock" id="stock"
+              class="w-full shadow appearance-none border rounded text-gray-700 focus:outline-none focus:shadow-outline py-1 px-3" />
+              <div *ngFor="let validation of articulo_validation_messages.stock">
+                <span *ngIf="articuloForm.get('stock')?.hasError(validation.type) && (articuloForm.get('stock')?.dirty || articuloForm.get('stock')?.touched)"
+                 class="text-sm text-red-500"> {{validation.message}}</span>
+              </div>
+          </div>
+          <div class="flex flex-col px-5 pt-3">
+            <label class="font-semibold pr-2 pb-2" for="precio">Precio:</label>
+            <input type="text" formControlName="precio" name="precio" id="precio"
+              class="w-full shadow appearance-none border rounded text-gray-700 focus:outline-none focus:shadow-outline py-1 px-3" />
+              <div *ngFor="let validation of articulo_validation_messages.precio">
+                <span *ngIf="articuloForm.get('precio')?.hasError(validation.type) && (articuloForm.get('precio')?.dirty || articuloForm.get('precio')?.touched)"
+                 class="text-sm text-red-500"> {{validation.message}}</span>
+              </div>
+          </div>
+          <div class="flex flex-col px-5 pt-3">
+            <label class="font-semibold pr-2 pb-2" for="costo">Costo:</label>
+            <input type="text" formControlName="costo"  name="costo" id="costo"
+              class="w-full shadow appearance-none border rounded text-gray-700 focus:outline-none focus:shadow-outline py-1 px-3" />
+              <div *ngFor="let validation of articulo_validation_messages.costo">
+                <span *ngIf="articuloForm.get('costo')?.hasError(validation.type) && (articuloForm.get('costo')?.dirty || articuloForm.get('costo')?.touched)"
+                 class="text-sm text-red-500"> {{validation.message}}</span>
+              </div>
+          </div>
+          <div class="flex flex-col px-5 pt-3">
+            <label class="font-semibold pr-2 pb-2" for="categoria">Categoria:</label>
+            <select class="w-full shadow appearance-none border rounded text-gray-700 focus:outline-none focus:shadow-outline py-1 px-3"
+            formControlName="categoria">
+              <option value="0">  -- Seleccionar Categoria -- </option>
+              <option *ngFor="let categoria of categorias" value="{{categoria.id}}">{{categoria.nombre}}</option>
+          </select>
+          <div *ngFor="let validation of articulo_validation_messages.categoria">
+            <span *ngIf="articuloForm.get('categoria')?.hasError(validation.type) && (articuloForm.get('categoria')?.dirty || articuloForm.get('categoria')?.touched)"
+             class="text-sm text-red-500"> {{validation.message}}</span>
+          </div>
+          </div>
+        </div>
+
+        <!-- Input's -->
+      </div>
+      <div class="flex flex-col px-5 pt-3 w-full">
+        <label class="font-semibold pr-2 pb-2" for="descripcion">Descripcion:</label>
+        <textarea formControlName="descripcion" name="descripcion" id="descripcion"
+          class="w-full shadow appearance-none border rounded text-gray-700 focus:outline-none focus:shadow-outline resize-none px-3"
+          name="" id="" cols="20" rows="4"></textarea>
+          <div *ngFor="let validation of articulo_validation_messages.descripcion">
+            <span *ngIf="articuloForm.get('descripcion')?.hasError(validation.type) && (articuloForm.get('descripcion')?.dirty || articuloForm.get('descripcion')?.touched)"
+             class="text-sm text-red-500"> {{validation.message}}</span>
+          </div>
+      </div>
+
+      <div class="flex items-center py-3 justify-center">
+        <button type="submit"
+          class=" bg-indigo-400 shadow-md text-gray-50 py-2 px-10  hover:bg-indigo-500 rounded">{{titulo}}</button>
+      </div>
+    </form>
+
+    <!--
+      <mat-error *ngFor="let validation of account_validation_messages.email">
+      <mat-error class="error-message" *ngIf="accountDetailsForm.get('email').hasError(validation.type) && (accountDetailsForm.get('email').dirty || accountDetailsForm.get('email').touched)">{{validation.message}}
+      </mat-error>
+    </mat-error>
+    class="text-sm text-red-500"
+  -->

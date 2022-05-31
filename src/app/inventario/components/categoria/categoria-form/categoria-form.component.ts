@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Categoria } from 'src/app/inventario/interfaces/inventario.interface';
+import { Categoria, ErrorResponse } from 'src/app/inventario/interfaces/inventario.interface';
 import { CategoriaService } from 'src/app/inventario/service/categoria.service';
 
 @Component({
@@ -15,6 +15,9 @@ export class CategoriaFormComponent implements OnInit {
   @Input() categoria!: Categoria
   @Input() titulo!: String
   isEditing:boolean = false
+  isError:boolean = false
+  errorResponse!:ErrorResponse
+  errorMessage:string = ""
 
 
 
@@ -64,7 +67,7 @@ export class CategoriaFormComponent implements OnInit {
   save() {
 
     if (this.categoriaForm.invalid) {
-      this.categoriaForm.markAsTouched
+      this.categoriaForm.markAllAsTouched()
       return
     }
 
@@ -77,7 +80,14 @@ export class CategoriaFormComponent implements OnInit {
           this.closeModal()
         },
         error: (error) => {
-          console.error(error)
+          this.errorResponse = error.error
+          if(this.errorResponse.validations.unique !== ""){
+            this.errorMessage = this.errorResponse.validations.unique
+            this.showError()
+          }else{
+            this.errorMessage = "Ha ocurrido un problema al agregar la marca"
+            this.showError()
+          }
         }
       })
     } else {
@@ -88,12 +98,25 @@ export class CategoriaFormComponent implements OnInit {
           this.update.emit(true)
         },
         error: (error) => {
-          console.error(error)
+          this.errorResponse = error.error
+          if(this.errorResponse.validations.unique !== ""){
+            this.errorMessage = this.errorResponse.validations.unique
+            this.showError()
+          }else{
+            this.errorMessage = "Ha ocurrido un problema al agregar la marca"
+            this.showError()
+          }
         }
       })
     }
+  }
 
 
+  showError(){
+    setTimeout(() => {
+      this.isError = false
+    }, 5000);
+    this.isError = true;
   }
 
 }

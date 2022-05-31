@@ -58,13 +58,13 @@
 
 
 <app-articulo-ver *ngIf="modalVerActive" (close)="closeVerModal($event)" [articulo]="articulo"></app-articulo-ver>
-<!-- <app-categoria-form
+<app-articulo-form
 *ngIf="modalAgregarActive"
 (close)="closeAgregarModal($event)"
 (update)="updatePage($event)"
-[categoria]="categoria"
+[articulo]="articulo"
 [titulo]="titulo">
-</app-categoria-form> -->
+</app-articulo-form>
 <app-articulo-eliminar *ngIf="modalEliminarActive" (close)="closeEliminarModal($event)" [articulo]="articulo"
   (isDelete)="updatePage($event)"></app-articulo-eliminar>
 

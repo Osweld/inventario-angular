@@ -18,6 +18,11 @@ export class CategoriaService {
     return this.http.get<Pagination>(url)
   }
 
+  getAllCategoriasWithoutPagination():Observable<Categoria[]>{//quitar el size
+    const url = `${this.baseUrl}/api/v1/categorias/all`;
+    return this.http.get<Categoria[]>(url)
+  }
+
   saveCategoria(categoria:Categoria):Observable<Categoria>{
     const url = `${this.baseUrl}/api/v1/categorias`;
     return this.http.post<Categoria>(url,categoria)

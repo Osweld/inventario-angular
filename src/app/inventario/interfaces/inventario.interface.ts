@@ -30,3 +30,16 @@ export interface Pagination {
   page: number;
   totalElements: number;
 }
+
+export interface ErrorResponse{
+  code: number
+  message: string
+  path: string
+  status: string
+  timestamp: Date
+  validations: Validation;
+}
+
+export interface Validation{
+  unique:string
+}

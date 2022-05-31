@@ -18,6 +18,11 @@ export class MarcaService {
     return this.http.get<Pagination>(url)
   }
 
+  getAllMarcasWithoutPagination():Observable<Marca[]>{
+    const url = `${this.baseUrl}/api/v1/marcas/all`;
+    return this.http.get<Marca[]>(url)
+  }
+
   saveMarca(marca:Marca):Observable<Marca>{
     const url = `${this.baseUrl}/api/v1/marcas`;
     return this.http.post<Marca>(url,marca)

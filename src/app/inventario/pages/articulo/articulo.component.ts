@@ -9,6 +9,9 @@ import { ArticuloService } from '../../service/articulo.service';
 })
 export class ArticuloComponent implements OnInit {
 
+  //En todas las paginas trabajar los errores en form y delete
+  //bloquear el boton cuando se trabaja en form y delete
+
   articulos!: Articulo[];
   articulosBuscador!: Articulo[];
   pagina!: Pagination;
@@ -46,7 +49,6 @@ export class ArticuloComponent implements OnInit {
     this.articuloService.getAllArticulos(0).subscribe(pagina => {
       this.articulos = pagina.data
       this.pagina = pagina
-      console.log(this.articulos)
     })
   }
 
